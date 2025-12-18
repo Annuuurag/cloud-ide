@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# env
+.env
+.env.*
+
+# builds
+dist/
+build/
+
+# logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# runtime user workspace
+server/user/**
+!server/user/.gitkeep
