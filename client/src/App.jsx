@@ -7,14 +7,21 @@ import socket from "./socket";
 
 //import AceEditor from "react-ace";
 
-import ReactAce from "react-ace";
-const AceEditor = ReactAce.default ?? ReactAce;
+//import ReactAce from "react-ace";
+//const AceEditor = ReactAce.default ?? ReactAce;
 
-import * as ace from "ace-builds/src-noconflict/ace";
-window.ace = ace;
+//import * as ace from "ace-builds/src-noconflict/ace";
+//window.ace = ace;
 
-//import ace from "ace-builds/src-noconflict/ace";
-ace.config.set("useWorker", false);
+//import "ace-builds/src-noconflict/ace";
+//ace.config.set("useWorker", false);
+
+/*
+import ace from "ace-builds/src-noconflict/ace";
+ace.config.set("basePath", "/node_modules/ace-builds/src-noconflict");
+ace.config.set("modePath", "/node_modules/ace-builds/src-noconflict");
+ace.config.set("themePath", "/node_modules/ace-builds/src-noconflict");
+ace.config.set("workerPath", "/node_modules/ace-builds/src-noconflict");
 
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-github";
@@ -36,10 +43,12 @@ import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/mode-html";
 
 import { getFileMode } from "./utils/getFileMode";
+*/
+
+import Editor from "@monaco-editor/react";
 
 const BACKEND_URL = "http://3.110.135.150:9000";
 //const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-
 
 //ace.config.set("basePath", "/node_modules/ace-builds/src-noconflict");
 
@@ -55,6 +64,15 @@ function App() {
 
   const isSaved = selectedFileContent === code;
 
+  const langMap = {
+    javascript: "javascript",
+    python: "python",
+    java: "java",
+    c: "c",
+    cpp: "cpp",
+    json: "json",
+  };
+
   useEffect(() => {
     getFileTree();
   }, []);
@@ -66,7 +84,7 @@ function App() {
           path: selectedFile,
           content: code,
         });
-      }, 5 * 1000);
+      }, 3 * 1000);
       return () => {
         clearTimeout(timer);
       };
@@ -127,17 +145,18 @@ function App() {
             </p>
           )}
 
-          <AceEditor
-            width="100%"
+          <Editor
+            width="90%"
             height="90%"
             theme="github"
-            mode={getFileMode({ selectedFile })}
             value={code}
-            onChange={(e) => setCode(e)}
-            setOptions={{
-              useWorker: false,
-              enableLiveAutocompletion: true,
-              enableBasicAutocompletion: true,
+            onChange={(value) => setCode(value ?? "")}
+            options={{
+              fontSize: 14,
+              minimap: { enabled: false },
+              scrollBeyondLastLine: false,
+              wordWrap: "on",
+              automaticLayout: true,
             }}
           />
         </div>
