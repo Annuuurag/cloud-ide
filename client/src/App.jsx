@@ -5,16 +5,16 @@ import Terminal from "./components/terminal";
 import FileTree from "./components/tree";
 import socket from "./socket";
 
+//import AceEditor from "react-ace";
 
-//import ReactAce from "react-ace";
-import AceEditor from "react-ace";
-import ace from "ace-builds/src-noconflict/ace";
-ace.config.set("useWorker", false);
+import ReactAce from "react-ace";
+const AceEditor = ReactAce.default ?? ReactAce;
 
-//const AceEditor = ReactAce.default ?? ReactAce;
-
+import * as ace from "ace-builds/src-noconflict/ace";
+window.ace = ace;
 
 //import ace from "ace-builds/src-noconflict/ace";
+ace.config.set("useWorker", false);
 
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-github";
@@ -35,7 +35,6 @@ import "ace-builds/src-noconflict/mode-css";
 import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/mode-html";
 
-
 import { getFileMode } from "./utils/getFileMode";
 
 const BACKEND_URL = "http://3.110.135.150:9000";
@@ -45,7 +44,6 @@ const BACKEND_URL = "http://3.110.135.150:9000";
 console.log("AceEditor:", typeof AceEditor);
 console.log("Terminal:", typeof Terminal);
 console.log("FileTree:", typeof FileTree);
-
 
 function App() {
   const [fileTree, setFileTree] = useState({});
@@ -58,7 +56,6 @@ function App() {
   useEffect(() => {
     getFileTree();
   }, []);
-
 
   useEffect(() => {
     if (!isSaved && code) {
@@ -130,12 +127,16 @@ function App() {
 
           <AceEditor
             width="100%"
-            height="100%"
+            height="90%"
             theme="github"
             mode={getFileMode({ selectedFile })}
             value={code}
             onChange={(e) => setCode(e)}
-            setOptions={{ useWorker: false }}
+            setOptions={{
+              useWorker: false,
+              enableLiveAutocompletion: true,
+              enableBasicAutocompletion: true,
+            }}
           />
         </div>
       </div>
