@@ -6,9 +6,12 @@ import FileTree from "./components/tree";
 import socket from "./socket";
 
 
-import ReactAce from "react-ace";
+//import ReactAce from "react-ace";
+import AceEditor from "react-ace";
+import ace from "ace-builds/src-noconflict/ace";
+ace.config.set("useWorker", false);
 
-const AceEditor = ReactAce.default ?? ReactAce;
+//const AceEditor = ReactAce.default ?? ReactAce;
 
 
 //import ace from "ace-builds/src-noconflict/ace";
@@ -35,7 +38,7 @@ import "ace-builds/src-noconflict/mode-html";
 
 import { getFileMode } from "./utils/getFileMode";
 
-const BACKEND_URL = "http://localhost:9000";
+const BACKEND_URL = "http://3.110.135.150:9000";
 
 //ace.config.set("basePath", "/node_modules/ace-builds/src-noconflict");
 
