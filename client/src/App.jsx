@@ -37,8 +37,8 @@ import "ace-builds/src-noconflict/mode-html";
 
 import { getFileMode } from "./utils/getFileMode";
 
-//const BACKEND_URL = "http://3.110.135.150:9000";
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = "http://3.110.135.150:9000";
+//const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 
 //ace.config.set("basePath", "/node_modules/ace-builds/src-noconflict");
